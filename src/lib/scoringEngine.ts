@@ -408,7 +408,7 @@ export function assessBulletPoint(bulletText: string): BulletAssessment {
 
   const hasWeakStart = weakVerbs.some((wv) => trimmed.toLowerCase().startsWith(wv));
   
-  const metricMatch = trimmed.match(/\$[\d,]+|\d+%\b|\b\d+\s*(?:people|users|clients|years|months|members|projects|increase|growth|reduction|hours|downloads|requests|ms|seconds|x)\b/i);
+  const metricMatch = trimmed.match(/\$[\d,]+|\d+(?:\.\d+)?%|\b\d+\+?\s*(?:people|users|clients|years|months|members|projects|increase|growth|reduction|hours|downloads|requests|ms|seconds|x|employees|modules|tables|controllers|endpoints)\b/i);
   const hasMetric = Boolean(metricMatch);
 
   const foundCliché = Object.keys(buzzwordsDict).find((bw) => new RegExp(`\\b${escapeRegex(bw)}\\b`, 'i').test(trimmed));
@@ -499,7 +499,7 @@ export function analyzeResume(
     return pattern.test(text);
   });
   
-  const metrics = text.match(/\$[\d,]+|\d+%\b|\b\d+\s*(?:people|users|clients|years|months|members|projects|increase|growth|reduction|hours|downloads|requests)\b/gi)?.length ?? 0;
+  const metrics = text.match(/\$[\d,]+|\d+(?:\.\d+)?%|\b\d+\+?\s*(?:people|users|clients|years|months|members|projects|increase|growth|reduction|hours|downloads|requests|ms|seconds|x|employees|modules|tables|controllers|endpoints)\b/gi)?.length ?? 0;
   const bullets = /(?:^|\n)\s*(?:[•\-–*]|\d+\.)\s+/m.test(text);
   
   const contactAudit = auditContactInfo(text);
